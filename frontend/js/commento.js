@@ -1262,7 +1262,7 @@
       cookieSet("commentoCommenterToken", resp.commenterToken);
       
       var auth_redirect = origin + "/api/oauth/" + provider + "/redirect?commenterToken=" + resp.commenterToken;
-      auth_redirect = auth_direct + '&domain=' + window.location.hostname;
+      auth_redirect = auth_redirect + '&domain=' + window.location.hostname;
       popup.location = auth_redirect;
 
       var interval = setInterval(function() {
