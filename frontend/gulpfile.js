@@ -8,7 +8,7 @@ const htmlMinifier = require("gulp-html-minifier");
 const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
 const rename = require("gulp-rename");
-const eslint = require("gulp-eslint");
+//const eslint = require("gulp-eslint");
 
 const develPath = "build/devel/";
 const prodPath = "build/prod/";
@@ -147,11 +147,13 @@ gulp.task("js-prod", function () {
   }
 });
 
+/*
 gulp.task("lint", function () {
   return gulp.src(jsGlob)
     .pipe(eslint())
     .pipe(eslint.failAfterError())
 });
+* */
 
-gulp.task("devel", ["scss-devel", "html-devel", "fonts-devel", "images-devel", "lint", "js-devel"]);
-gulp.task("prod", ["scss-prod", "html-prod", "fonts-prod", "images-prod", "lint", "js-prod"]);
+gulp.task("devel", ["scss-devel", "html-devel", "fonts-devel", "images-devel", /*"lint",*/ "js-devel"]);
+gulp.task("prod", ["scss-prod", "html-prod", "fonts-prod", "images-prod", /*"lint",*/ "js-prod"]);
