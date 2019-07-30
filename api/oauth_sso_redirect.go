@@ -11,7 +11,7 @@ import (
 
 func ssoRedirectHandler(w http.ResponseWriter, r *http.Request) {
 	commenterToken := r.FormValue("commenterToken")
-	domain := r.Header.Get("Referer")
+	domain := r.FormValue("domain")
 
 	if commenterToken == "" {
 		fmt.Fprintf(w, "Error: %s\n", errorMissingField.Error())
@@ -20,7 +20,7 @@ func ssoRedirectHandler(w http.ResponseWriter, r *http.Request) {
 
 	domain = domainStrip(domain)
 	if domain == "" {
-		fmt.Fprintf(w, "Error: No Referer header found in request\n")
+		fmt.Fprintf(w, "Error: No domain field found in request\n")
 		return
 	}
 
