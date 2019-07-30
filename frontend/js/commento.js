@@ -1260,8 +1260,10 @@
       }
 
       cookieSet("commentoCommenterToken", resp.commenterToken);
-
-      popup.location = origin + "/api/oauth/" + provider + "/redirect?commenterToken=" + resp.commenterToken + '&domain=' + window.location.hostname;
+      
+      var auth_redirect = origin + "/api/oauth/" + provider + "/redirect?commenterToken=" + resp.commenterToken;
+      auth_redirect = auth_direct + '&domain=' + window.location.hostname;
+      popup.location = auth_redirect;
 
       var interval = setInterval(function() {
         if (popup.closed) {
