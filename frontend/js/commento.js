@@ -1261,7 +1261,7 @@
 
       cookieSet("commentoCommenterToken", resp.commenterToken);
 
-      popup.location = origin + "/api/oauth/" + provider + "/redirect?commenterToken=" + resp.commenterToken;
+      popup.location = origin + "/api/oauth/" + provider + "/redirect?commenterToken=" + resp.commenterToken + '&domain=' + window.location.hostname;
 
       var interval = setInterval(function() {
         if (popup.closed) {
