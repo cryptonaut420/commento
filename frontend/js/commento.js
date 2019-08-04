@@ -553,7 +553,7 @@
     var mainArea = $(ID_MAIN_AREA);
     var commentsArea = create("div");
 
-    login.id = ID_LOGIN;
+    //login.id = ID_LOGIN;
     commentsArea.id = ID_COMMENTS_AREA;
 
    // classAdd(login, "login");
