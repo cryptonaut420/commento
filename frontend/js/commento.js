@@ -1316,19 +1316,19 @@
     var oauthButtonsContainer = create("div");
     var oauthButtons = create("div");
     var hr2 = create("hr");
-    var emailSubtitle = create("div");
-    var emailContainer = create("div");
-    var email = create("div");
-    var emailInput = create("input");
-    var emailButton = create("button");
+    //var emailSubtitle = create("div");
+    //var emailContainer = create("div");
+    //var email = create("div");
+    //var emailInput = create("input");
+    //var emailButton = create("button");
     var loginLinkContainer = create("div");
     var loginLink = create("a");
     var close = create("div");
 
     loginBox.id = ID_LOGIN_BOX;
-    emailSubtitle.id = ID_LOGIN_BOX_EMAIL_SUBTITLE;
-    emailInput.id = ID_LOGIN_BOX_EMAIL_INPUT;
-    emailButton.id = ID_LOGIN_BOX_EMAIL_BUTTON;
+    //emailSubtitle.id = ID_LOGIN_BOX_EMAIL_SUBTITLE;
+    //emailInput.id = ID_LOGIN_BOX_EMAIL_INPUT;
+    //emailButton.id = ID_LOGIN_BOX_EMAIL_BUTTON;
     loginLink.id = ID_LOGIN_BOX_LOGIN_LINK;
     loginLinkContainer.id = ID_LOGIN_BOX_LOGIN_LINK_CONTAINER;
     hr2.id = ID_LOGIN_BOX_HR;
@@ -1337,11 +1337,11 @@
 
     classAdd(loginBoxContainer, "login-box-container");
     classAdd(loginBox, "login-box");
-    classAdd(emailSubtitle, "login-box-subtitle");
-    classAdd(emailContainer, "email-container");
-    classAdd(email, "email");
-    classAdd(emailInput, "input");
-    classAdd(emailButton, "email-button");
+   // classAdd(emailSubtitle, "login-box-subtitle");
+    //classAdd(emailContainer, "email-container");
+   // classAdd(email, "email");
+    //classAdd(emailInput, "input");
+    //classAdd(emailButton, "email-button");
     classAdd(loginLinkContainer, "login-link-container");
     classAdd(loginLink, "login-link");
     classAdd(ssoSubtitle, "login-box-subtitle");
@@ -1353,20 +1353,20 @@
     classAdd(close, "login-box-close");
     classAdd(root, "root-min-height");
 
-    loginLink.innerText = "Don't have an account? Sign up.";
+   /* loginLink.innerText = "Don't have an account? Sign up.";
     emailSubtitle.innerText = "Login with your email address";
     emailButton.innerText = "Continue";
-    oauthSubtitle.innerText = "Proceed with social login";
+    oauthSubtitle.innerText = "Proceed with social login"; */
     ssoSubtitle.innerText = "Proceed with " + parent.location.host + " authentication";
 
-    onclick(emailButton, global.passwordAsk, id);
+    //onclick(emailButton, global.passwordAsk, id);
     onclick(loginLink, global.popupSwitch);
     onclick(close, global.loginBoxClose);
 
     attrSet(loginBoxContainer, "style", "display: none; opacity: 0;");
-    attrSet(emailInput, "name", "email");
-    attrSet(emailInput, "placeholder", "Email address");
-    attrSet(emailInput, "type", "text");
+    //attrSet(emailInput, "name", "email");
+    //attrSet(emailInput, "placeholder", "Email address");
+    //attrSet(emailInput, "type", "text");
 
     var numOauthConfigured = 0;
     var oauthProviders = ["google", "twitter", "github", "gitlab"];
@@ -1415,9 +1415,9 @@
       oauthButtonsShown = false;
     }
 
-    append(email, emailInput);
-    append(email, emailButton);
-    append(emailContainer, email);
+    //append(email, emailInput);
+    //append(email, emailButton);
+    //append(emailContainer, email);
 
     append(loginLinkContainer, loginLink);
 
@@ -1426,8 +1426,8 @@
     }
 
     if (configuredOauths["commento"]) {
-      append(loginBox, emailSubtitle);
-      append(loginBox, emailContainer);
+      //append(loginBox, emailSubtitle);
+      //append(loginBox, emailContainer);
       append(loginBox, loginLinkContainer);
     }
 
