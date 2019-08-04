@@ -247,7 +247,7 @@
       name = create("div");
     }
     var avatar;
-    var logout = create("div");
+//    var logout = create("div");
     var color = colorGet(commenter.commenterHex + "-" + commenter.name);
 
     loggedContainer.id = ID_LOGGED_CONTAINER;
@@ -255,12 +255,12 @@
     classAdd(loggedContainer, "logged-container");
     classAdd(loggedInAs, "logged-in-as");
     classAdd(name, "name");
-    classAdd(logout, "logout");
+ //   classAdd(logout, "logout");
 
     name.innerText = commenter.name;
-    logout.innerText = "Logout";
+ //   logout.innerText = "Logout";
 
-    onclick(logout, global.logout);
+  //  onclick(logout, global.logout);
 
     attrSet(loggedContainer, "style", "display: none");
     if (commenter.link !== "undefined") {
@@ -280,7 +280,7 @@
     append(loggedInAs, avatar);
     append(loggedInAs, name);
     append(loggedContainer, loggedInAs);
-    append(loggedContainer, logout);
+    //append(loggedContainer, logout);
     prepend(root, loggedContainer);
 
     isAuthenticated = true;
