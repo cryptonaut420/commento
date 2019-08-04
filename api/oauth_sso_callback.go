@@ -12,6 +12,7 @@ import (
 func ssoCallbackHandler(w http.ResponseWriter, r *http.Request) {
 	payloadHex := r.FormValue("payload")
 	signature := r.FormValue("hmac")
+	redirect := r.FormValue("redirect")
 
 	payloadBytes, err := hex.DecodeString(payloadHex)
 	if err != nil {
@@ -109,6 +110,11 @@ func ssoCallbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err = commenterSessionUpdate(commenterToken, commenterHex); err != nil {
 		fmt.Fprintf(w, "Error: %s\n", err.Error())
+		return
+	}
+	
+	if redirect != nil {
+		http.Redirect(w, r, redirect)
 		return
 	}
 
