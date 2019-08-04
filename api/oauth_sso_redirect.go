@@ -12,6 +12,7 @@ import (
 func ssoRedirectHandler(w http.ResponseWriter, r *http.Request) {
 	commenterToken := r.FormValue("commenterToken")
 	domain := r.FormValue("domain")
+	redirect := r.FormValue("redirect")
 
 	if commenterToken == "" {
 		fmt.Fprintf(w, "Error: %s\n", errorMissingField.Error())
@@ -82,6 +83,9 @@ func ssoRedirectHandler(w http.ResponseWriter, r *http.Request) {
 	q := u.Query()
 	q.Set("token", token)
 	q.Set("hmac", signature)
+	if len(redirect) > 0 {
+		q.Set("redirect", redirect)
+	}
 	u.RawQuery = q.Encode()
 
 	http.Redirect(w, r, u.String(), http.StatusFound)
