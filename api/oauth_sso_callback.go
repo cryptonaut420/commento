@@ -114,7 +114,7 @@ func ssoCallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	if len(redirect) > 0 {
-		http.Redirect(w, r, redirect)
+		http.Redirect(w, r, redirect, http.StatusSeeOther)
 		return
 	}
 
