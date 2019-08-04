@@ -1392,7 +1392,7 @@
       classAdd(button, "button");
       classAdd(button, "sso-button");
 
-      button.innerText = "Login with Single Sign-On";
+      button.innerText = "Login Now";
 
       onclick(button, global.commentoAuth, {"provider": "sso", "id": id});
 
