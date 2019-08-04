@@ -113,7 +113,7 @@ func ssoCallbackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	if redirect != nil {
+	if len(redirect) > 0 {
 		http.Redirect(w, r, redirect)
 		return
 	}
