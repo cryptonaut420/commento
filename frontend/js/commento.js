@@ -1204,6 +1204,9 @@
 
   function submitAuthenticated(id) {
     if (isAuthenticated) {
+		
+     //check permissions on parent app
+	
       global.commentNew(id, commenterTokenGet());
       return;
     }

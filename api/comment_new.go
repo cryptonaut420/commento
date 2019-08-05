@@ -3,6 +3,10 @@ package main
 import (
 	"net/http"
 	"time"
+	"encoding/json"
+	"encoding/hex"
+	"crypto/hmac"
+	"crypto/sha256"
 )
 
 // Take `creationDate` as a param because comment import (from Disqus, for
@@ -135,6 +139,28 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 					state = "approved"
 				}
 			}
+		}
+		
+		//check permissions with parent application
+		check_data := {"requester": "commento", "email": c.Email, "route": path, "permKey": "canComment"}
+		check_json := json.Marshal(check_data)
+		secret_bytes := hex.DecodeString(os.GetEnv("PARENT_APP_API_SECRET"))
+		h := hmac.New(sha256.New, secret_bytes)
+		h.Write(check_json)
+		SignatureBytes := h.Sum(nil)
+		hmac_string := string(SignatureBytes)
+		
+		resp, err := http.PostForm(os.GetEnv("PARENT_APP_URL") + "/api/v1/permissions/check",
+			url.Values{"requester": "commento", "email": c.Email, "route": path, "permKey": "canComment", "hmac": hmac_string})
+		
+		if err != nil {
+			bodyMarshal(w, response{"success": false, "message": err.Error()})
+			return	
+		}
+		
+		if resp.result == false {
+			bodyMarshal(w, response{"success": false, "message": "permission denied"})
+			return	
 		}
 	}
 
