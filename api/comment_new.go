@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"time"
+	"os"
 	"encoding/json"
 	"encoding/hex"
 	"crypto/hmac"
@@ -66,6 +67,11 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		Email     *string `json:"email"`
 		Route     *string `json:"route"`
 		PermKey   *string `json:"permKey"`
+	}
+	
+	type permResult struct {
+		Result  *string `json:"result"`
+		Error  *string `json:"error"`
 	}
 
 	var x request
@@ -150,8 +156,11 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		
 		//check permissions with parent application
 		var check_data permJson
-		check_data{Requester: "commento", Email: c.Email, Route: path, PermKey: "canComment"}
-		check_json := json.Marshal(check_data)
+		check_data.Requester = "commento"
+		check_data.Email = c.Email
+		check_data.Route = path
+		check_data.PermKey = "canComment"
+		check_json, err := json.Marshal(check_data)
 		secret_bytes := hex.DecodeString(os.GetEnv("PARENT_APP_API_SECRET"))
 		h := hmac.New(sha256.New, secret_bytes)
 		h.Write(check_json)
@@ -166,7 +175,11 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 			return	
 		}
 		
-		if resp.result == false {
+		var response_data permResult
+		decode_response := json.NewDecoder(resp.Body)
+		decode_response.Decode(&response_data)
+		
+		if response_data.Result == false {
 			bodyMarshal(w, response{"success": false, "message": "permission denied"})
 			return	
 		}
