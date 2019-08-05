@@ -70,7 +70,7 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	type permResult struct {
-		Result  *string `json:"result"`
+		Result  bool `json:"result"`
 		Error  *string `json:"error"`
 	}
 
@@ -161,14 +161,14 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		check_data.Route = path
 		check_data.PermKey = "canComment"
 		check_json, err := json.Marshal(check_data)
-		secret_bytes := hex.DecodeString(os.GetEnv("PARENT_APP_API_SECRET"))
+		secret_bytes, err := hex.DecodeString(os.Getenv("PARENT_APP_API_SECRET"))
 		h := hmac.New(sha256.New, secret_bytes)
 		h.Write(check_json)
 		SignatureBytes := h.Sum(nil)
 		hmac_string := string(SignatureBytes)
 		
-		resp, err := http.PostForm(os.GetEnv("PARENT_APP_URL") + "/api/v1/permissions/check",
-			url.Values{"requester": "commento", "email": c.Email, "route": path, "permKey": "canComment", "hmac": hmac_string})
+		final_json_str := "{\"requester\": \"commento\", \"email\": \"" + c.Email + "\", \"route\": \"" + path + "\", \"permKey\": \"canComment\", \"hmac\": \"" + hmac_string + "\"}"
+		resp, err := http.PostForm(os.Getenv("PARENT_APP_URL") + "/api/v1/permissions/check", final_json_str)
 		
 		if err != nil {
 			bodyMarshal(w, response{"success": false, "message": err.Error()})
