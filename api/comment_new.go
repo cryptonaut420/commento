@@ -63,10 +63,10 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	type permJson struct {
-		Requester *string `json:"requester"`
-		Email     *string `json:"email"`
-		Route     *string `json:"route"`
-		PermKey   *string `json:"permKey"`
+		Requester string `json:"requester"`
+		Email     string `json:"email"`
+		Route     string `json:"route"`
+		PermKey   string `json:"permKey"`
 	}
 	
 	type permResult struct {
