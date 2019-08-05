@@ -60,6 +60,13 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		ParentHex      *string `json:"parentHex"`
 		Markdown       *string `json:"markdown"`
 	}
+	
+	type permJson struct {
+		Requester *string `json:"requester"`
+		Email     *string `json:"email"`
+		Route     *string `json:"route"`
+		PermKey   *string `json:"permKey"`
+	}
 
 	var x request
 	if err := bodyUnmarshal(r, &x); err != nil {
@@ -142,7 +149,8 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		
 		//check permissions with parent application
-		check_data := {"requester": "commento", "email": c.Email, "route": path, "permKey": "canComment"}
+		var check_data permJson
+		check_data{Requester: "commento", Email: c.Email, Route: path, PermKey: "canComment"}
 		check_json := json.Marshal(check_data)
 		secret_bytes := hex.DecodeString(os.GetEnv("PARENT_APP_API_SECRET"))
 		h := hmac.New(sha256.New, secret_bytes)
