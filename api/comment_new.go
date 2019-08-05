@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 	"os"
-	"url"
+	"net/url"
 	"encoding/json"
 	"encoding/hex"
 	"crypto/hmac"
