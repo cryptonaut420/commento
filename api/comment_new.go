@@ -169,7 +169,7 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		hmac_string := string(SignatureBytes)
 
 		resp, err := http.PostForm(os.GetEnv("PARENT_APP_URL") + "/api/v1/permissions/check",
-			url.Values{"requester": "commento", "email": c.Email, "route": path, "permKey": "canComment", "hmac": hmac_string})
+			url.Values{"requester": {"commento"}, "email": {c.Email}, "route": {path}, "permKey": {"canComment"}, "hmac": {hmac_string}})
 		
 		if err != nil {
 			bodyMarshal(w, response{"success": false, "message": err.Error()})
