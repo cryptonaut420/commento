@@ -7,7 +7,6 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "requirejs": "2.3.6",
     "chartist": "0.11.0",
     "fixmyjs": "2.0.0",
     "gulp": "3.9.1",
@@ -26,8 +25,7 @@
     "normalize-scss": "7.0.1",
     "sass": "1.5.1",
     "uglify-js": "3.4.1",
-    "vue": "2.5.16",
-    "bad-words": "3.0.3"
+    "vue": "2.5.16"
   },
   "dependencies": {
     "eslint": "^5.10.0"
