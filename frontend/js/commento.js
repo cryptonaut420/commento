@@ -82,6 +82,8 @@
   var selfHex = undefined;
   var mobileView = null;
 
+  var WordFilter = require('bad-words');
+  var wordfilter = new WordFilter();
 
   function $(id) {
     return document.getElementById(id);
@@ -837,7 +839,7 @@
 
       card.style["borderLeft"] = "2px solid " + color;
       name.innerText = commenter.name;
-      text.innerHTML = comment.html;
+      text.innerHTML = wordfilter.clean(comment.html);
       timeago.innerHTML = timeDifference(curTime, comment.creationDate);
       score.innerText = scorify(comment.score);
 
