@@ -1,4 +1,4 @@
-(function(global, document) {
+(function(global, document, require) {
   "use strict";
 
   // Do not use other files like utils.js and http.js in the gulpfile to build
