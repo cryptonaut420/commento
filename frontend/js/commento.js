@@ -82,8 +82,10 @@
   var selfHex = undefined;
   var mobileView = null;
 
-  var WordFilter = require('bad-words');
-  var wordfilter = new WordFilter();
+  var wordfilter;
+  var WordFilter = require(['bad-words'], function (Filter) {
+    wordfilter = new Filter();
+  });
 
   function $(id) {
     return document.getElementById(id);
