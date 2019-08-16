@@ -181,7 +181,7 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		decode_response.Decode(&response_data)
 		
 		if response_data.Result == false {
-			bodyMarshal(w, response{"success": false, "message": "permission denied"})
+			bodyMarshal(w, response{"success": false, "message": "You've discovered a Pro feature. Commenting is available to Pro accounts to promote quality discource and eliminate spam."})
 			return	
 		}
 	}
