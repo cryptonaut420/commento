@@ -3,12 +3,6 @@ package main
 import (
 	"net/http"
 	"time"
-	"os"
-	"net/url"
-	"encoding/json"
-	"encoding/hex"
-	"crypto/hmac"
-	"crypto/sha256"
 )
 
 // Take `creationDate` as a param because comment import (from Disqus, for
@@ -154,7 +148,7 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-		
+
 	}
 
 	commentHex, err := commentNew(commenterHex, domain, path, *x.ParentHex, *x.Markdown, state, time.Now().UTC())
