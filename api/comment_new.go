@@ -62,14 +62,14 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 		ParentHex      *string `json:"parentHex"`
 		Markdown       *string `json:"markdown"`
 	}
-	
+
 	type permJson struct {
 		Requester string `json:"requester"`
 		Email     string `json:"email"`
 		Route     string `json:"route"`
 		PermKey   string `json:"permKey"`
 	}
-	
+
 	type permResult struct {
 		Result  bool `json:"result"`
 		Error  *string `json:"error"`
@@ -155,35 +155,6 @@ func commentNewHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		
-		//check permissions with parent application
-		var check_data permJson
-		check_data.Requester = "commento"
-		check_data.Email = c.Email
-		check_data.Route = path
-		check_data.PermKey = "canComment"
-		check_json, err := json.Marshal(check_data)
-		secret_bytes, err := hex.DecodeString(os.Getenv("PARENT_APP_API_SECRET"))
-		h := hmac.New(sha256.New, secret_bytes)
-		h.Write(check_json)
-		SignatureBytes := h.Sum(nil)
-		hmac_string := hex.EncodeToString(SignatureBytes)
-
-		resp, err := http.PostForm(os.Getenv("PARENT_APP_URL") + "/api/v1/permissions/check",
-			url.Values{"requester": {"commento"}, "email": {c.Email}, "route": {path}, "permKey": {"canComment"}, "hmac": {hmac_string}})
-		
-		if err != nil {
-			bodyMarshal(w, response{"success": false, "message": err.Error()})
-			return	
-		}
-		
-		var response_data permResult
-		decode_response := json.NewDecoder(resp.Body)
-		decode_response.Decode(&response_data)
-		
-		if response_data.Result == false {
-			bodyMarshal(w, response{"success": false, "message": "You've discovered a Pro feature. Commenting is available to Pro accounts to promote quality discource and eliminate spam."})
-			return	
-		}
 	}
 
 	commentHex, err := commentNew(commenterHex, domain, path, *x.ParentHex, *x.Markdown, state, time.Now().UTC())
